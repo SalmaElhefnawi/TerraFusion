@@ -25,13 +25,20 @@ function getOrCreateCart($customer_id) {
     }
     
     // Create a new order (cart) if none exists
-    $stmt = $pdo->prepare("
-        INSERT INTO orders (served_by_fk, status, order_date, total_amount) 
-        VALUES (?, 'New', NOW(), 0.00)
-    ");
-    $stmt->execute([$customer_id]);
-    
-    return $pdo->lastInsertId();
+    try {
+        $stmt = $pdo->prepare("
+            INSERT INTO orders (served_by_fk, status, order_date, total_amount) 
+            VALUES (?, 'New', NOW(), 0.00)
+        ");
+        $stmt->execute([$customer_id]);
+        return $pdo->lastInsertId();
+    } catch (PDOException $e) {
+        // Check for Foreign Key violation (SQLSTATE 23000)
+        if ($e->getCode() == '23000') {
+            return false;
+        }
+        throw $e;
+    }
 }
 
 /**

@@ -61,6 +61,15 @@ try {
   $cart_count = 0;
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_SESSION['user_id'])) {
       $cart_id = getOrCreateCart($_SESSION['user_id']);
+      
+      if ($cart_id === false) {
+          // User exists in session but not in DB (orphaned session)
+          session_unset();
+          session_destroy();
+          header("Location: index.php");
+          exit;
+      }
+      
       $cart_count = getCartCount($cart_id);
   }
   ?>
@@ -128,7 +137,7 @@ try {
             <h2 data-aos="fade-up" data-aos-delay="100">Welcome to <span>Terra Fusion</span></h2>
             <p data-aos="fade-up" data-aos-delay="200">A taste you have never tried before..</p>
             <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
-              <a href="#menu" class="cta-btn">Our Menu</a>
+              <a href="menu.php" class="cta-btn">Our Menu</a>
               <a href="#book-a-table" class="cta-btn">Book a Table</a>
             </div>
           </div>

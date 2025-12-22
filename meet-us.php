@@ -205,15 +205,6 @@ require_once 'config.php';
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
-          <div class="d-flex">
-            <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php">My Profile</a>
-            <a class="btn-book-a-table d-none d-xl-block" href="logout.php">Logout</a>
-          </div>
-        <?php else: ?>
-          <a class="btn-book-a-table d-none d-xl-block" href="login.php">Login / Register</a>
-        <?php endif; ?>
-
       </div>
 
     </div>

@@ -438,8 +438,8 @@ try {
                             ?>
                             <div class="menu-item" data-item-id="<?php echo (int)$item['meal_id']; ?>">
                                 <div style="width: 100%; overflow: hidden; height: 350px; display: flex; align-items: center; justify-content: center; background: #1a1a1a;">
-                                    <img src="<?php echo !empty($item['image']) ? 'images/meals-imgs/' . htmlspecialchars($item['image']) : 'images/meals-imgs/default.png'; ?>" 
-                                         alt="<?php echo htmlspecialchars($item['meal_name']); ?>" 
+                                 <img src="<?php echo !empty($item['image']) ? htmlspecialchars($item['image']) : 'images/meals-imgs/default.png'; ?>" 
+     alt="<?php echo htmlspecialchars($item['meal_name']); ?>"
                                          class="menu-item-image"
                                          style="width: 100%; height: 100%; object-fit: cover;"
                                          onerror="this.onerror=null; this.src='images/meals-imgs/default.png';">

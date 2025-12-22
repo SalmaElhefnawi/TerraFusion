@@ -135,6 +135,7 @@ $currentStatusIndex = array_search($orderData['status'], $statusOrder);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Your Order - TerraFusion</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chef-mahmoud.css">
     <style>
         .tracking-header {
             text-align: center;
