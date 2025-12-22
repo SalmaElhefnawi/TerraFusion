@@ -22,7 +22,7 @@ ob_start();
                 <th>Category</th>
                 <th>Price</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Meal Type</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@ ob_start();
                 <tr>
                     <td><?= $item->id ?></td>
                     <td><?= htmlspecialchars($item->name) ?></td>
-                    <td><?= htmlspecialchars($item->category_name ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($item->meal_type ?? $item->category_name ?? 'N/A') ?></td>
                     <td class="text-gold"><?= format_currency($item->price) ?></td>
                     <td>
                         <span class="badge bg-<?= $item->is_available ? 'success' : 'danger' ?>">
@@ -61,7 +61,7 @@ ob_start();
                 <?= csrf_field() ?>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Category</label>
+                        <label class="form-label">Meal Type</label>
                         <select name="category_id" class="form-select" required>
                             <?php foreach ($categories as $cat): ?>
                                 <option value="<?= $cat->id ?>"><?= htmlspecialchars($cat->name) ?></option>

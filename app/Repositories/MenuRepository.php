@@ -55,7 +55,7 @@ class MenuRepository implements RepositoryInterface
      */
     public function getAllAvailable(): array
     {
-        $sql = "SELECT * FROM meals WHERE availability = 'Available' AND quantity > 0 ORDER BY category, meal_name";
+        $sql = "SELECT * FROM meals WHERE availability = 'Available' AND quantity > 0 ORDER BY meal_type, meal_name";
         
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
@@ -106,7 +106,7 @@ class MenuRepository implements RepositoryInterface
      */
     public function getCategories(): array
     {
-        $sql = "SELECT DISTINCT category FROM meals ORDER BY category";
+        $sql = "SELECT DISTINCT meal_type FROM meals ORDER BY meal_type";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);

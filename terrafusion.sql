@@ -32,7 +32,7 @@ CREATE TABLE `users` (
 CREATE TABLE `meals` (
   `meal_id` int(11) NOT NULL AUTO_INCREMENT,
   `meal_name` varchar(100) NOT NULL,
-  `category` varchar(50) NOT NULL,
+  `meal_type` varchar(50) NOT NULL,
   `description` text DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
@@ -140,7 +140,7 @@ CREATE TABLE `payments` (
 INSERT INTO `users` (`email`, `password_hash`, `full_name`, `phone`, `role`) VALUES
 ('admin@terrafusion.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin Mahmoud', '0123456789', 'Manager');
 
-INSERT INTO `meals` (`meal_name`, `category`, `description`, `price`, `availability`, `quantity`, `image`) VALUES
+INSERT INTO `meals` (`meal_name`, `meal_type`, `description`, `price`, `availability`, `quantity`, `image`) VALUES
 ('Bruschetta', 'Appetizers', 'Toasted bread with tomatoes, garlic and fresh basil', 80.00, 'Available', 50, 'images/bruschetta.jpg'),
 ('Margherita Pizza', 'Main Course', 'Classic pizza with tomato, mozzarella, and basil', 150.00, 'Available', 30, 'images/pizza.jpg'),
 ('Chocolate Lava Cake', 'Desserts', 'Warm chocolate cake with a molten center', 90.00, 'Available', 20, 'images/lava-cake.jpg');

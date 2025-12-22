@@ -9,11 +9,11 @@ require_once 'config.php';
 $menuCategories = [];
 
 try {
-    // Get distinct categories from the database
-    $stmt = $pdo->query("SELECT DISTINCT category FROM meals WHERE availability = 'Available' AND quantity > 0 ORDER BY category");
+    // Get distinct meal types from the database
+    $stmt = $pdo->query("SELECT DISTINCT meal_type FROM meals WHERE availability = 'Available' AND quantity > 0 ORDER BY meal_type");
     $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     
-    // Fetch meals for each category
+    // Fetch meals for each meal_type
     foreach ($categories as $category) {
         $stmt = $pdo->prepare("
             SELECT 
@@ -22,23 +22,23 @@ try {
                 description,
                 price,
                 image,
-                category,
+                meal_type,
                 quantity
             FROM meals 
-            WHERE category = :category AND availability = 'Available' AND quantity > 0
+            WHERE meal_type = :meal_type AND availability = 'Available' AND quantity > 0
             ORDER BY created_at DESC
         ");
         
-        $stmt->execute([':category' => $category]);
+        $stmt->execute([':meal_type' => $category]);
         $meals = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         // Add to menu categories if there are meals
         if (!empty($meals)) {
             $menuCategories[$category] = $meals;
             // Debug output
-            echo "<!-- Debug: Found " . count($meals) . " items in category: " . htmlspecialchars($category) . " -->";
+            echo "<!-- Debug: Found " . count($meals) . " items in meal type: " . htmlspecialchars($category) . " -->";
         } else {
-            echo "<!-- Debug: No items found for category: " . htmlspecialchars($category) . " -->";
+            echo "<!-- Debug: No items found for meal type: " . htmlspecialchars($category) . " -->";
         }
     }
 } catch(Exception $e) {

@@ -56,7 +56,7 @@ require_once __DIR__ . '/config.php'; // Ensures $pdo is available
 
 function getFormattedMenu($pdo) {
     try {
-        $stmt = $pdo->prepare("SELECT meal_id, meal_name, category, description, price FROM meals WHERE availability = 'Available' ORDER BY category, meal_name");
+        $stmt = $pdo->prepare("SELECT meal_id, meal_name, meal_type, description, price FROM meals WHERE availability = 'Available' ORDER BY meal_type, meal_name");
         $stmt->execute();
         $meals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -68,9 +68,9 @@ function getFormattedMenu($pdo) {
         $currentCat = "";
         
         foreach ($meals as $meal) {
-            // Group by category header
-            if ($meal['category'] !== $currentCat) {
-                $currentCat = $meal['category'];
+            // Group by meal_type header
+            if ($meal['meal_type'] !== $currentCat) {
+                $currentCat = $meal['meal_type'];
                 $menuText .= "\n" . strtoupper($currentCat) . ":\n";
             }
             $menuText .= "- {$meal['meal_name']} ({$meal['meal_id']}): {$meal['description']} ($" . number_format($meal['price'], 2) . ")\n";

@@ -43,7 +43,7 @@ try {
         } else {
             // Insert New Item
             $insert = $pdo->prepare("
-                INSERT INTO meals (meal_name, category, price, description, image, quantity, availability, created_at)
+                INSERT INTO meals (meal_name, meal_type, price, description, image, quantity, availability, created_at)
                 VALUES (?, ?, ?, ?, ?, 50, 'Available', NOW())
             ");
             $insert->execute([$name, $category, $price, $desc, $image]);

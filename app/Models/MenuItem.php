@@ -8,7 +8,7 @@ class MenuItem extends Model
     protected string $primaryKey = 'meal_id';
     protected array $fillable = [
         'meal_name',
-        'category',
+        'meal_type',
         'description',
         'price',
         'image',
@@ -17,11 +17,11 @@ class MenuItem extends Model
     ];
 
     /**
-     * Get the category name
+     * Get the category/meal type name (kept for backward compatibility)
      */
     public function getCategoryAttribute(): string
     {
-        return $this->category;
+        return $this->meal_type ?? '';
     }
 
     /**
@@ -33,11 +33,11 @@ class MenuItem extends Model
     }
 
     /**
-     * Get items by category
+     * Get items by category (meal_type)
      */
     public static function getByCategory(string $category): array
     {
-        return self::where('category', $category);
+        return self::where('meal_type', $category);
     }
 
     /**
