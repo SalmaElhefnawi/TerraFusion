@@ -1,22 +1,22 @@
     :root {
       /* Main Colors */
-      --primary: #cda45e;
+      --primary: #D4AF37;
       /* Gold/Yellow */
-      --primary-hover: #d9b672;
-      --secondary: #cda45e;
+      --primary-hover: #e6c744;
+      --secondary: #D4AF37;
       /* Gold variant */
       --dark: #000000;
       /* Black */
       --dark-glass: rgba(0, 0, 0, 0.85);
       /* Semi-transparent black */
-      --body-bg: #0c0b09;
+      --body-bg: #121212;
       /* Very Dark background */
       --card-bg: rgba(25, 25, 25, 0.95);
       --text-color: #ffffff;
       /* White text */
       --text-muted: #aaaaaa;
       /* Muted text */
-      --border-color: rgba(205, 164, 94, 0.2);
+      --border-color: rgba(212, 175, 55, 0.2);
     }
 
     .text-gold {

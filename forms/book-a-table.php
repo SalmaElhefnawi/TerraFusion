@@ -35,14 +35,24 @@ try {
     }
 
     // Insert into database
-    $stmt = $pdo->prepare("INSERT INTO reservations (customer_name, contact_phone, party_size, reservation_date, reservation_time, status, notes) VALUES (?, ?, ?, ?, ?, 'Confirmed', ?)");
-    if (!$stmt->execute([$name, $phone, $people, $date, $time, $message_text])) {
+    $stmt = $pdo->prepare("INSERT INTO reservations (customer_name, contact_phone, party_size, reservation_date, reservation_time, status, notes, email) VALUES (?, ?, ?, ?, ?, 'Confirmed', ?, ?)");
+    if (!$stmt->execute([$name, $phone, $people, $date, $time, $message_text, $email])) {
         throw new Exception("Database insert failed.");
     }
 
+    // Get the new reservation ID
+    $new_id = $pdo->lastInsertId();
+
+    // Generate QR Code URL
+    $qr_code_url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=TerraFusion_Res_$new_id";
+
     // Success so far
-    $response['success'] = true;
-    $response['message'] = 'Reservation booked successfully! Check your email for the QR code.';
+    $response['status'] = 'success';
+    $response['message'] = 'Booked!';
+    $response['reservation_id'] = $new_id;
+    $response['qr_code_url'] = $qr_code_url;
+    $response['guests'] = $people;
+    $response['date'] = $date;
 
     // Generate QR Code URL
     $qrData = "Reservation Confirmed\nName: $name\nDate: $date\nTime: $time\nGuests: $people\nRef: " . uniqid();

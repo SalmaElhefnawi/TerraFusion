@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'config.php';
+require_once 'cart_functions.php';
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -23,6 +24,12 @@ try {
 } catch (PDOException $e) {
     die("Error fetching user data: " . $e->getMessage());
 }
+
+$cart_count = 0;
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_SESSION['user_id'])) {
+    $cart_id = getOrCreateCart($_SESSION['user_id']);
+    $cart_count = getCartCount($cart_id);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,9 +39,62 @@ try {
   <title>My Profile - TerraFusion</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/userprofile.css">
+  <link href="main.css" rel="stylesheet">
 </head>
 <body>
+  <header id="header" class="header fixed-top">
+
+    <div class="topbar d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+
+      </div>
+    </div><!-- End Top Bar -->
+
+    <div class="branding d-flex align-items-center">
+
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <h1 class="sitename">Terra Fusion</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="#hero" class="active">Home<br></a></li>
+            <li><a href="menu.php">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#specials">Specials</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+          <div class="d-flex">
+            <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="My Profile"><i class="bi bi-person-circle"></i></a>
+            <a class="btn-book-a-table d-none d-xl-block position-relative" href="cart.php" title="Cart">
+              <i class="bi bi-cart3"></i>
+              <span id="cart-badge" class="position-absolute translate-middle badge d-flex align-items-center justify-content-center" style="<?php echo $cart_count > 0 ? '' : 'display: none;'; ?>"><?php echo $cart_count; ?></span>
+            </a>
+            <a class="btn-book-a-table d-none d-xl-block" href="logout.php" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
+
+          </div>
+        <?php else: ?>
+          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Login"><i class="bi bi-box-arrow-in-right"></i></a>
+        <?php endif; ?>
+
+      </div>
+
+    </div>
+
+  </header>
+
   <main id="main" class="main">
     <section id="user-profile" class="user-profile section">
       <div class="container">
@@ -180,6 +240,83 @@ try {
           </div>
         </div>
 
+        <!-- My Reservations Section -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="card shadow-lg border-0 bg-glass">
+              <div class="card-header bg-transparent border-0 pt-4 pb-0 px-4">
+                <h4 class="text-white mb-0">My Reservations</h4>
+              </div>
+              <div class="card-body p-4">
+                  <?php
+                    // Fetch user reservations
+                    try {
+                        $stmtRes = $pdo->prepare("SELECT * FROM reservations WHERE email = ? ORDER BY reservation_date DESC, reservation_time DESC");
+                        $stmtRes->execute([$user['email']]);
+                        $reservations = $stmtRes->fetchAll(PDO::FETCH_ASSOC);
+                    } catch (PDOException $e) {
+                        $reservations = [];
+                        echo "<div class='alert alert-danger'>Error loading reservations: " . $e->getMessage() . "</div>";
+                    }
+                  ?>
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle custom-table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-uppercase text-gold">ID</th>
+                        <th scope="col" class="text-uppercase text-gold">Date</th>
+                        <th scope="col" class="text-uppercase text-gold">Time</th>
+                        <th scope="col" class="text-uppercase text-gold">Guests</th>
+                        <th scope="col" class="text-uppercase text-gold">Status</th>
+                        <th scope="col" class="text-uppercase text-gold text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       <?php if (count($reservations) > 0): ?>
+                           <?php foreach ($reservations as $res): ?>
+                           <tr>
+                               <td class="fw-bold text-white">#<?php echo $res['reservation_id']; ?></td>
+                               <td class="text-white"><?php echo date('M d, Y', strtotime($res['reservation_date'])); ?></td>
+                               <td class="text-white time-font"><?php echo date('h:i A', strtotime($res['reservation_time'])); ?></td>
+                               <td class="text-white"><?php echo $res['party_size']; ?> People</td>
+                               <td><span class="badge bg-success"><?php echo $res['status']; ?></span></td>
+                               <td class="text-end">
+                                    <button class="btn btn-sm btn-gold" onclick="viewQr(<?php echo $res['reservation_id']; ?>)">
+                                        <i class="bi bi-qr-code"></i> View QR
+                                    </button>
+                               </td>
+                           </tr>
+                           <?php endforeach; ?>
+                       <?php else: ?>
+                           <tr>
+                               <td colspan="6" class="text-center py-4 text-muted">No reservations found. <a href="index.php#book-a-table">Book a Table</a></td>
+                           </tr>
+                       <?php endif; ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Script specifically for this page's QR modal -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+        function viewQr(id) {
+            const qr_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=TerraFusion_Res_${id}`;
+            Swal.fire({
+                title: 'Reservation QR Code',
+                imageUrl: qr_url,
+                imageWidth: 150,
+                imageHeight: 150,
+                background: '#121212',
+                color: '#D4AF37',
+                confirmButtonColor: '#D4AF37'
+            });
+        }
+        </script>
+
       </div>
     </section>
 
@@ -216,6 +353,22 @@ try {
                         <label class="form-label text-white-50">Phone</label>
                         <input type="tel" class="form-control bg-dark text-white border-secondary" id="phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>">
                       </div>
+
+
+                
+                <script>
+                function showReservationQr(url, date) {
+                    Swal.fire({
+                        title: 'Reservation QR Code',
+                        text: 'Date: ' + date,
+                        imageUrl: url,
+                        imageWidth: 200,
+                        imageHeight: 200,
+                        imageAlt: 'Reservation QR',
+                        confirmButtonColor: '#cda45e'
+                    });
+                }
+                </script>
                       <button type="submit" class="btn btn-primary w-100">Save Changes</button>
                     </form>
                 </div>
@@ -244,7 +397,20 @@ try {
     </section>
   </main>
 
+  <!-- Main JS File -->
+  <script src="main.js"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/userprofile.js"></script>
+  
+  <!-- Mahmoud AI Chatbot -->
+  <script>
+    // Empty context for profile page, or could be fetched if needed
+    window.terraMenu = []; 
+  </script>
+  <script src="assets/js/chef-mahmoud.js"></script>
 </body>
 </html>

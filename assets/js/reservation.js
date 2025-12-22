@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Select the reservation form
     const bookingForm = document.querySelector('form[action*="book-a-table.php"]');
+    console.log('Booking form found:', bookingForm);
     
     if (bookingForm) {
         bookingForm.addEventListener('submit', function(e) {
+            console.log('Form submit intercepted');
             e.preventDefault(); // Prevent default PHP submission
 
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
@@ -35,14 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                if (data.success) {
-                    // Success! Show SweetAlert
+                console.log('Response data:', data);
+                if (data.status === 'success') {
+                    // Success! Show SweetAlert with QR Code
                     Swal.fire({
                         title: 'Reservation Confirmed!',
-                        html: '<p>Your table has been successfully booked.</p><p style="font-size: 0.9em; color: #555;">Please check your email (<strong>' + formData.get('email') + '</strong>) for your confirmation and QR Code.</p>',
+                        html: `Table for ${data.guests || 'your party'} on ${data.date || 'the selected date'}. <br> <strong>Order #${data.reservation_id}</strong><br><img src="${data.qr_code_url}" alt="QR Code" style="width: 150px; height: 150px; border: 2px solid gold; margin-top: 10px;">`,
+                        footer: 'Check your Profile to view this later.',
                         icon: 'success',
-                        confirmButtonColor: '#cda45e',
-                        confirmButtonText: 'Great!'
+                        background: '#121212',
+                        color: '#D4AF37',
+                        confirmButtonColor: '#D4AF37'
                     });
 
                     // Reset form

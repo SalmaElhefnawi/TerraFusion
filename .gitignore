@@ -29,6 +29,7 @@ assets/images/menu-items/*
 !assets/images/menu-items/.gitkeep
 
 # Cache
+
 cache/
 tmp/
 
@@ -40,3 +41,11 @@ composer.lock
 assets/css/*.css.map
 assets/js/*.min.js
 
+.env
+config.php
+db_connect.php
+/vendor
+
+
+test_*.php
+models.txt

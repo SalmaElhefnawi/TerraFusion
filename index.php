@@ -464,7 +464,7 @@ try {
           <div class="text-center mt-3">
             <div class="loading">Loading</div>
             <div class="error-message"></div>
-            <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
+            <div class="sent-message">Your booking request was sent. We will call back to confirm reservations. Thank you!</div>
             <button type="submit">Book a Table</button>
           </div>
         </form><!-- End Reservation Form -->
@@ -838,9 +838,11 @@ try {
   </script>
   <script src="assets/js/chef-mahmoud.js"></script>
   
-  <!-- SweetAlert2 for nice alerts -->
+  <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- Reservation Handler -->
+
+  <!-- Main JS File -->
+  <script src="main.js"></script>
   <script src="assets/js/reservation.js"></script>
 </body>
 </html>

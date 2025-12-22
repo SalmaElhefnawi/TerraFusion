@@ -427,6 +427,12 @@ $currentStatusIndex = array_search($orderData['status'], $statusOrder);
     </button>
 
     <script src="assets/js/tracking.js"></script>
+    
+    <!-- Mahmoud AI Chatbot -->
+    <script>
+        window.terraMenu = []; 
+    </script>
+    <script src="assets/js/chef-mahmoud.js"></script>
 </body>
 </html>
 

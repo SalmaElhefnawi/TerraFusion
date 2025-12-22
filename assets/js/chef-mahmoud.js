@@ -23,10 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuContext = window.terraMenu || {};
     const flatMenu = flattenMenu(menuContext);
 
-    // Initial Greeting
-    setTimeout(() => {
-        addMessage("Ahlan! I am Mahmoud, your virtual head chef. How can I help you today? / أهلاً بك! أنا محمود، رئيس الطهاة الافتراضي. كيف يمكنني مساعدتك اليوم؟", 'mahmoud');
-    }, 1000);
+    // Initial Greeting - REMOVED (Handled by loadState)
 
     // 3. Event Listeners
     chatToggle.addEventListener('click', toggleChat);
@@ -37,11 +34,49 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'Enter') handleUserMessage();
     });
 
+    // --- Persistence Logic ---
+    function saveState() {
+        const state = {
+            isOpen: isOpen,
+            messages: chatMessages.innerHTML,
+            reservation: reservationState
+        };
+        localStorage.setItem('mahmoudChatState', JSON.stringify(state));
+    }
+
+    function loadState() {
+        const saved = localStorage.getItem('mahmoudChatState');
+        if (saved) {
+            const state = JSON.parse(saved);
+            isOpen = state.isOpen;
+            if (isOpen) {
+                chatWindow.classList.add('active');
+                chatToggle.classList.add('hidden');
+            }
+            if (state.messages) {
+                chatMessages.innerHTML = state.messages;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            if (state.reservation) {
+                reservationState = state.reservation;
+            }
+        } else {
+             // Initial Greeting only if no history
+             setTimeout(() => {
+                addMessage("Ahlan! I am Mahmoud, your virtual head chef. How can I help you today? / أهلاً بك! أنا محمود، رئيس الطهاة الافتراضي. كيف يمكنني مساعدتك اليوم؟", 'mahmoud');
+            }, 1000);
+        }
+    }
+
+    // Load state on startup
+    loadState();
+
     // 4. Functions
     function toggleChat() {
         isOpen = !isOpen;
         chatWindow.classList.toggle('active', isOpen);
         chatToggle.classList.toggle('hidden', isOpen);
+        saveState(); // Save open/closed state
     }
 
     function handleUserMessage() {
@@ -64,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
         msgDiv.innerHTML = `<div class="msg-bubble">${text}</div>`;
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+        saveState(); // Save new message
     }
 
     async function processQuery(query, isArabic) {
@@ -154,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     'mahmoud');
                 break;
         }
+        saveState(); // Save reservation progress
     }
 
     function findMeal(query) {
@@ -184,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (el) el.remove();
     }
 
+    // --- Add Clear Chat Button to Header ---
     function createChatUI() {
         // ... (existing HTML remains same, we will append the proactive bubble dynamically)
         const html = `
@@ -203,7 +241,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <span class="status">Online</span>
                             </div>
                         </div>
-                        <button id="mahmoud-close"><i class="bi bi-x"></i></button>
+                        <div class="header-actions">
+                            <button id="mahmoud-clear" title="Clear Chat" style="background:none;border:none;color:var(--text-secondary);margin-right:8px;"><i class="bi bi-trash"></i></button>
+                            <button id="mahmoud-close"><i class="bi bi-x"></i></button>
+                        </div>
                     </div>
                     
                     <div id="mahmoud-messages"></div>
@@ -216,6 +257,14 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', html);
+        
+        // Add clear listener
+        document.getElementById('mahmoud-clear').addEventListener('click', () => {
+             localStorage.removeItem('mahmoudChatState');
+             document.getElementById('mahmoud-messages').innerHTML = '';
+             isOpen = false;
+             loadState(); // Re-init
+        });
 
         // Trigger proactive greeting if on index.php
         const currentUrl = window.location.href.toLowerCase();
@@ -235,6 +284,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!container || !toggle) return;
 
+        // Check if user has already interacted/closed, maybe don't show annoying popup? 
+        // For now, keep as is.
         console.log("Mahmoud: Starting proactive greeting...");
         const text = "Hi! I'm Chef Mahmoud. Need help?";
         const bubble = document.createElement('div');
