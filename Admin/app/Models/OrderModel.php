@@ -46,7 +46,8 @@ class OrderModel extends BaseModel
 
     public function getTotalSales()
     {
-        $stmt = $this->db->query("SELECT SUM(total_amount) as total FROM orders WHERE status = 'Paid'");
+        // Include 'Paid', 'Served' (if considered revenue), and legacy 'completed' status
+        $stmt = $this->db->query("SELECT SUM(total_amount) as total FROM orders WHERE status IN ('Paid', 'Served', 'completed')");
         $result = $stmt->fetch();
         return $result['total'] ?? 0;
     }
@@ -69,7 +70,7 @@ class OrderModel extends BaseModel
     {
         $sql = "SELECT DATE(order_date) as date, SUM(total_amount) as total 
                 FROM orders 
-                WHERE status = 'Paid' AND order_date >= DATE_SUB(CURDATE(), INTERVAL :days DAY)
+                WHERE status IN ('Paid', 'Served', 'completed') AND order_date >= DATE_SUB(CURDATE(), INTERVAL :days DAY)
                 GROUP BY DATE(order_date)
                 ORDER BY DATE(order_date) ASC";
         $stmt = $this->db->prepare($sql);

@@ -63,4 +63,10 @@ class MenuItemModel extends BaseModel
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function delete($id)
+    {
+        $sql = "DELETE FROM {$this->table} WHERE {$this->primaryKey} = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
 }

@@ -356,21 +356,51 @@ $total = $subtotal + $tax + $deliveryFee;
         </div>
     </main>
     
-      <footer id="footer" class="footer">
+  <footer id="footer" class="footer" style="position: relative; overflow: visible;">
+    <!-- Floating Shapes Background -->
+    <div class="floating-shapes">
+      <span class="shape" style="--i:11; --x: 05%; --d: 0s;">✦</span>
+      <span class="shape" style="--i:12; --x: 15%; --d: 2s;">✧</span>
+      <span class="shape" style="--i:15; --x: 25%; --d: 4s;">●</span>
+      <span class="shape" style="--i:13; --x: 35%; --d: 1s;">◆</span>
+      <span class="shape" style="--i:18; --x: 45%; --d: 5s;">✨</span>
+      <span class="shape" style="--i:14; --x: 55%; --d: 3s;">✦</span>
+      <span class="shape" style="--i:16; --x: 65%; --d: 6s;">✧</span>
+      <span class="shape" style="--i:19; --x: 75%; --d: 2s;">●</span>
+      <span class="shape" style="--i:20; --x: 85%; --d: 4s;">◆</span>
+      
+      <span class="shape" style="--i:21; --x: 10%; --d: 1.5s;">✨</span>
+      <span class="shape" style="--i:22; --x: 20%; --d: 3.5s;">✦</span>
+      <span class="shape" style="--i:23; --x: 30%; --d: 5.5s;">✧</span>
+      <span class="shape" style="--i:24; --x: 40%; --d: 2.5s;">●</span>
+      <span class="shape" style="--i:25; --x: 50%; --d: 4.5s;">◆</span>
+      <span class="shape" style="--i:26; --x: 60%; --d: 0.5s;">✨</span>
+      <span class="shape" style="--i:27; --x: 70%; --d: 6.5s;">✦</span>
+      <span class="shape" style="--i:28; --x: 80%; --d: 1.2s;">✧</span>
+      <span class="shape" style="--i:29; --x: 90%; --d: 3.2s;">●</span>
+      <span class="shape" style="--i:30; --x: 02%; --d: 5.2s;">◆</span>
+      <span class="shape" style="--i:31; --x: 12%; --d: 2.8s;">✨</span>
+      <span class="shape" style="--i:32; --x: 22%; --d: 4.8s;">✦</span>
+      <span class="shape" style="--i:33; --x: 32%; --d: 0.8s;">✧</span>
+      <span class="shape" style="--i:34; --x: 42%; --d: 6.8s;">●</span>
+      <span class="shape" style="--i:35; --x: 52%; --d: 1.8s;">◆</span>
+      <span class="shape" style="--i:36; --x: 62%; --d: 3.8s;">✨</span>
+      <span class="shape" style="--i:37; --x: 72%; --d: 5.8s;">✦</span>
+    </div>
 
     <div class="container footer-top">
-      <div class="row gy-4">
+      <div class="row gy-4 justify-content-center text-center">
         <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="index.php" class="logo d-flex align-items-center">
             <span class="sitename">Terra Fusion</span>
           </a>
           <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
+            <p>Misr International University</p>
+            <p>Egypt, Cairo, Obour City, MIU</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+20 101 234 5678</span></p>
+            <p><strong>Email:</strong> <span>contact@terrafusion.com</span></p>
           </div>
-          <div class="social-links d-flex mt-4">
+          <div class="social-links d-flex mt-4 justify-content-center">
             <a href=""><i class="bi bi-twitter-x"></i></a>
             <a href=""><i class="bi bi-facebook"></i></a>
             <a href=""><i class="bi bi-instagram"></i></a>
@@ -381,41 +411,19 @@ $total = $subtotal + $tax + $deliveryFee;
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php#about">About us</a></li>
+            <li><a href="menu.php">Menu</a></li>
+            <li><a href="index.php#contact">Contact</a></li>
+            <li><a href="meet-us.php">Meet Us</a></li>
           </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-md-12 footer-newsletter">
-          <h4>Our Newsletter</h4>
-          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-          <form action="forms/newsletter.php" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
         </div>
 
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p> <span>Copyright</span> <strong class="px-1 sitename">Terra Fusion</strong> <span>All Rights Reserved</span></p>
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Terra Fusion</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
       </div>
     </div>

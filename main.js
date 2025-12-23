@@ -136,8 +136,8 @@
                 signupBtn.removeAttribute('data-bs-toggle');
                 signupBtn.removeAttribute('data-bs-target');
             } else {
-                signupBtn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i>';
-                signupBtn.title = 'Login';
+                signupBtn.innerHTML = '<i class="bi bi-person"></i>';
+                signupBtn.title = 'Profile';
                 signupBtn.href = '#';
                 signupBtn.setAttribute('data-bs-toggle', 'modal');
                 signupBtn.setAttribute('data-bs-target', '#signupModal');

@@ -27,7 +27,7 @@
                 <tr>
                     <td><?= htmlspecialchars($item['meal_name']) ?></td>
                     <td><span class="badge bg-secondary"><?= htmlspecialchars($item['meal_type']) ?></span></td>
-                    <td>$<?= number_format($item['price'], 2) ?></td>
+                    <td>EGP <?= number_format($item['price'], 2) ?></td>
                     <td><?= htmlspecialchars(substr($item['description'], 0, 50)) ?>...</td>
                     <td>
                         <span class="badge <?= $item['availability'] === 'Available' ? 'bg-success' : 'bg-danger' ?>">
@@ -41,7 +41,7 @@
                                 data-bs-toggle="modal" data-bs-target="#menuModal">
                             <i class="fas fa-edit"></i> Edit
                         </button>
-                        <a href="/Admin/public/index.php?page=menu&action=delete&id=<?= $item['meal_id'] ?>" 
+                        <a href="index.php?page=menu&action=delete&id=<?= $item['meal_id'] ?>" 
                            class="btn btn-sm btn-outline-danger"
                            onclick="return confirm('Are you sure you want to delete this item?');">
                             <i class="fas fa-trash"></i> Delete
@@ -96,7 +96,7 @@
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="price" class="form-label">Price ($)</label>
+                            <label for="price" class="form-label">Price (EGP)</label>
                             <input type="number" step="0.01" class="form-control" id="price" name="price" required>
                         </div>
                         <div class="col-md-6 mb-3">

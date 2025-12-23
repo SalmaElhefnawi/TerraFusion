@@ -48,6 +48,14 @@
       z-index: -1;
     }
 
+    /* Navbar Font Override */
+    #navmenu,
+    #navmenu ul,
+    #navmenu li,
+    #navmenu a {
+      font-family: 'Courier New', monospace !important;
+    }
+
     /* Profile Hero Section */
     .profile-hero {
       padding: 40px 0;

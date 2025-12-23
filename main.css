@@ -643,7 +643,7 @@ h6 {
 
 .footer .footer-top {
   padding-top: 50px;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-top: none;
 }
 
 .footer .footer-about .logo {
@@ -654,6 +654,11 @@ h6 {
 .footer .footer-about .logo img {
   max-height: 40px;
   margin-right: 6px;
+}
+
+.footer .footer-about .logo {
+  justify-content: center;
+  /* Added for center alignment */
 }
 
 .footer .footer-about .logo span {
@@ -715,6 +720,8 @@ h6 {
   padding: 10px 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+  /* Added for center alignment */
 }
 
 .footer .footer-links ul li:first-child {
@@ -1282,38 +1289,43 @@ section,
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
-.hero {
-  width: 100%;
-  min-height: 100vh;
+/* --- HERO SLIDESHOW (Swiper) --- */
+#hero {
   position: relative;
-  padding: 80px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--default-color);
+  overflow: hidden;
+  padding: 0;
+  height: 100vh;
 }
 
-.hero img {
+#hero .swiper {
   position: absolute;
   inset: 0;
-  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+#hero .swiper-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+#hero:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  inset: 0;
   z-index: 1;
 }
 
-.hero:before {
-  content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 50%);
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
-.hero .container {
+#hero .container {
   position: relative;
-  z-index: 3;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hero h2 {
@@ -1765,10 +1777,43 @@ section,
   font-size: 14px;
   padding: 10px 15px;
   box-shadow: none;
-  border-radius: 0;
-  color: var(--default-color);
-  background-color: color-mix(in srgb, var(--background-color), transparent 20%);
-  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+  border-radius: 5px;
+  /* Rounded corners */
+  color: #fff;
+  background-color: rgba(230, 226, 226, 0.03);
+  /* Glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  height: 50px;
+  color-scheme: dark;
+  /* Forces native date/time pickers to use dark theme */
+}
+
+/* Style the date/time icons and number spinner to be white */
+.book-a-table .php-email-form input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  /* Invert black to white */
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.book-a-table .php-email-form input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.book-a-table .php-email-form input::-webkit-inner-spin-button {
+  filter: invert(1);
+  /* Invert spinner arrows to white */
+  opacity: 0.8;
+  cursor: pointer;
+  height: 30px;
+  /* Make spinner area easier to click */
+}
+
+.book-a-table .php-email-form textarea {
+  height: 150px;
 }
 
 .book-a-table .php-email-form input[type=text]:focus,
@@ -1778,6 +1823,9 @@ section,
 .book-a-table .php-email-form input[type=time]:focus,
 .book-a-table .php-email-form textarea:focus {
   border-color: var(--accent-color);
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Slightly lighter on focus */
+  box-shadow: 0 0 10px rgba(205, 164, 94, 0.2);
 }
 
 .book-a-table .php-email-form input[type=text]::placeholder,
@@ -1790,16 +1838,23 @@ section,
 }
 
 .book-a-table .php-email-form button[type=submit] {
-  color: var(--default-color);
-  border: 2px solid var(--accent-color);
-  background: transparent;
+  color: #000;
+  background: linear-gradient(45deg, var(--accent-color), #d4ac50);
+  border: none;
   padding: 14px 60px;
-  transition: 0.4s;
+  transition: all 0.3s ease;
   border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(205, 164, 94, 0.4);
+  cursor: pointer;
 }
 
 .book-a-table .php-email-form button[type=submit]:hover {
-  background: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(205, 164, 94, 0.6);
+  background: linear-gradient(45deg, #d4ac50, var(--accent-color));
 }
 
 /*--------------------------------------------------------------
@@ -1997,8 +2052,8 @@ section,
 # Contact Section
 --------------------------------------------------------------*/
 .contact {
-  background-color: color-mix(in srgb, var(--background-color) 90%, white 5%);
-  border-bottom: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%);
+  background-color: var(--background-color);
+  border-bottom: none;
 }
 
 .contact .info-item+.info-item {
@@ -2030,6 +2085,25 @@ section,
   padding: 0;
   margin-bottom: 0;
   font-size: 14px;
+}
+
+/* Meet Us Item Styles */
+.contact .meet-us-item {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.contact .meet-us-item:hover {
+  transform: translateY(-5px);
+}
+
+.contact .meet-us-item:hover i {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.contact .meet-us-item:hover h3 {
+  color: var(--accent-color);
 }
 
 .contact .php-email-form {
@@ -2380,4 +2454,79 @@ a.btn-book-a-table[href="cart.php"]:hover #cart-badge {
   border-left: 10px solid #000;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
+}
+
+/* Meet Us Button Style */
+.meet-us-btn {
+  background: linear-gradient(45deg, var(--accent-color), #d4ac50);
+  color: #000;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 40px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(205, 164, 94, 0.4);
+
+}
+
+/* Floating Shapes Background */
+.floating-shapes {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  /* Wrapper height minimal, allow overflow */
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shape {
+  position: absolute;
+  bottom: -50px;
+  left: var(--x);
+  font-size: 2rem;
+  color: var(--accent-color);
+  opacity: 0;
+  animation: floatUp 15s linear infinite;
+  /* Increased duration for longer travel */
+  animation-delay: var(--d);
+  filter: drop-shadow(0 0 5px rgba(205, 164, 94, 0.5));
+}
+
+@keyframes floatUp {
+  0% {
+    bottom: -50px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+
+  5% {
+    opacity: 0.6;
+  }
+
+  90% {
+    opacity: 0.2;
+  }
+
+  100% {
+    bottom: 1000px;
+    /* Float up high enough to cover contact section */
+    transform: translateX(-20px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.meet-us-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(205, 164, 94, 0.6);
+  background: linear-gradient(45deg, #d4ac50, var(--accent-color));
+  color: #000;
 }

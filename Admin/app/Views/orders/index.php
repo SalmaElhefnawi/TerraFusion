@@ -9,7 +9,7 @@
                 <th>Order ID</th>
                 <th>Table</th>
                 <th>Waiter</th>
-                <th>Total ($)</th>
+                <th>Total (EGP)</th>
                 <th>Status</th>
                 <th>Created At</th>
                 <th>Actions</th>
@@ -19,10 +19,10 @@
             <?php if (!empty($data['orders'])): ?>
                 <?php foreach ($data['orders'] as $order): ?>
                 <tr>
-                    <td>#<?= htmlspecialchars($order['id']) ?></td>
+                    <td>#<?= htmlspecialchars($order['order_id']) ?></td>
                     <td><?= htmlspecialchars($order['table_number'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($order['waiter_name'] ?? 'Unknown') ?></td>
-                    <td>$<?= number_format($order['total_amount'], 2) ?></td>
+                    <td>EGP <?= number_format($order['total_amount'], 2) ?></td>
                     <td>
                         <?php 
                             $statusClass = 'bg-secondary';
@@ -40,28 +40,20 @@
                     <td><?= htmlspecialchars($order['created_at'] ?? $order['order_date'] ?? 'N/A') ?></td>
                     <td>
                         <!-- Update Status Dropdown -->
-                        <form action="/Admin/public/index.php?page=orders&action=updateStatus" method="POST" class="d-inline">
-                            <input type="hidden" name="id" value="<?= $order['id'] ?>">
-                            <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-outline-gold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Update Status
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><button class="dropdown-item" type="submit" name="status" value="new">New</button></li>
-                                    
-                                    <?php 
-                                    // RBAC: Hide "Preparing" and "Ready" for Waiter (Role 1)
-                                    if(isset($_SESSION['role_id']) && $_SESSION['role_id'] > 1): 
-                                    ?>
-                                    <li><button class="dropdown-item" type="submit" name="status" value="preparing">Preparing</button></li>
-                                    <li><button class="dropdown-item" type="submit" name="status" value="ready">Ready</button></li>
-                                    <?php endif; ?>
-                                    
-                                    <li><button class="dropdown-item" type="submit" name="status" value="completed">Completed</button></li>
-                                    <li><button class="dropdown-item text-danger" type="submit" name="status" value="cancelled">Cancelled</button></li>
-                                </ul>
-                            </div>
-                        </form>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-outline-gold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Update Status
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="index.php?page=orders&action=update_status&id=<?= $order['order_id'] ?>&status=New">New</a></li>
+                                <li><a class="dropdown-item" href="index.php?page=orders&action=update_status&id=<?= $order['order_id'] ?>&status=Preparing">Preparing</a></li>
+                                <li><a class="dropdown-item" href="index.php?page=orders&action=update_status&id=<?= $order['order_id'] ?>&status=Ready">Ready</a></li>
+                                <li><a class="dropdown-item" href="index.php?page=orders&action=update_status&id=<?= $order['order_id'] ?>&status=Served">Served</a></li>
+                                <li><a class="dropdown-item" href="index.php?page=orders&action=update_status&id=<?= $order['order_id'] ?>&status=Paid">Paid</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="index.php?page=orders&action=update_status&id=<?= $order['order_id'] ?>&status=cancelled">Cancelled</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>

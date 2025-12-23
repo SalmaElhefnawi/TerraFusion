@@ -31,6 +31,7 @@ class MenuController
     public function save()
     {
         AuthController::checkAccess('Chef Boss');
+        $logFile = __DIR__ . '/../../public/debug.log';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'] ?? null;
@@ -85,14 +86,23 @@ class MenuController
                 }
             }
 
+            $quantity = $_POST['quantity'] ?? 0;
+            
+            // Strict dynamic availability logic: > 0 is Available, otherwise Out of Stock
+            if ($quantity > 0) {
+                $availability = 'Available';
+            } else {
+                $availability = 'Out of Stock';
+            }
+
             $data = [
                 'meal_name' => $_POST['name'],
                 'description' => $_POST['description'],
                 'price' => $_POST['price'],
                 'meal_type' => $_POST['meal_type'],
                 'image' => $imageUrl,
-                'availability' => isset($_POST['is_available']) ? 'Available' : 'Out of Stock',
-                'quantity' => $_POST['quantity'] ?? 0
+                'availability' => $availability,
+                'quantity' => $quantity
             ];
 
             file_put_contents($logFile, "[" . date('Y-m-d H:i:s') . "] SAVE MEAL: Data array = " . print_r($data, true) . "\n", FILE_APPEND);

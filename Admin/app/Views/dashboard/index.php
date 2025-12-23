@@ -25,8 +25,8 @@ endif;
     <div class="col-md-3 mb-4">
         <div class="card card-custom h-100 p-3">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-dollar-sign me-2"></i> Total Sales</h5>
-                <p class="card-value">$<?= number_format($data['totalSales'] ?? 0, 2) ?></p>
+                <h5 class="card-title"><i class="fas fa-coins me-2"></i> Total Sales</h5>
+                <p class="card-value">EGP <?= number_format($data['totalSales'] ?? 0, 2) ?></p>
             </div>
         </div>
     </div>
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             labels: salesLabels,
             datasets: [{
-                label: 'Daily Sales ($)',
+                label: 'Daily Sales (EGP)',
                 data: salesValues,
                 borderColor: goldColor,
                 backgroundColor: 'rgba(201, 176, 120, 0.1)',

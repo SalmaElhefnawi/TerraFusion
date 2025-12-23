@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Staff Management</h1>
+    <h1 class="h2">Users Management</h1>
     <!-- Add New Staff Button -->
     <button type="button" class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#userModal" onclick="resetUserForm()">
-        <i class="fas fa-user-plus me-2"></i> Add New Staff
+        <i class="fas fa-user-plus me-2"></i> Add New User
     </button>
 </div>
 
@@ -46,7 +46,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="userModalLabel">Add New Staff</h5>
+                <h5 class="modal-title" id="userModalLabel">Add New User</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="userForm" action="index.php?page=users&action=create" method="POST">

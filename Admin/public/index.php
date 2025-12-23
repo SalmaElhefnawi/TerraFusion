@@ -103,7 +103,7 @@ switch ($page) {
         break;
     case 'orders':
          $controller = new OrderController();
-         if ($action === 'updateStatus') {
+         if ($action === 'updateStatus' || $action === 'update_status') {
              $controller->updateStatus();
          } else {
              $controller->index();

@@ -356,6 +356,54 @@ try {
                 max-width: 1320px !important; /* Override style.css 1200px limit */
             }
         }
+        /* Category Navigation Bar */
+        .category-nav-container {
+            position: sticky;
+            top: 80px; /* Adjust based on navbar height */
+            z-index: 900;
+            background-color: transparent; /* No section background */
+            padding: 10px 0;
+            margin-bottom: 2rem;
+            /* Removed border and box-shadow to blend in */
+        }
+
+        .category-nav-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .category-nav-btn {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold); /* Thinner border */
+            padding: 8px 25px;
+            border-radius: 50px; /* Pill shape */
+            text-decoration: none;
+            font-family: 'Playfair Display', serif; /* Changed font */
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: capitalize; /* Changed from uppercase to capitalize */
+            font-size: 1.1rem; /* Slightly larger for the font */
+            letter-spacing: 0.5px;
+        }
+
+        .category-nav-btn:hover, .category-nav-btn.active {
+            background-color: var(--accent-gold);
+            color: #000; /* Black text on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(200, 162, 82, 0.4);
+        }
+
+        /* Adjust scroll offset for anchor links so headers aren't hidden behind sticky elements */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        :target {
+            scroll-margin-top: 160px; /* Navbar (approx 80px) + Category Bar (approx 70px) + gap */
+        }
     </style>
 </head>
 <body class="starter-page-services <?php echo (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) ? 'logged-in' : ''; ?>">
@@ -407,7 +455,7 @@ try {
 
           </div>
         <?php else: ?>
-          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Login"><i class="bi bi-box-arrow-in-right"></i></a>
+          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Profile"><i class="bi bi-person-circle"></i></a>
         <?php endif; ?>
 
       </div>
@@ -418,13 +466,28 @@ try {
 
     <main class="main">
       
-    <div class="container" style="margin-top: 120px;">
+    <div class="container" style="margin-top: 100px;">
+
+        <!-- Category Navigation Bar -->
+        <?php if (!empty($menuCategories)): ?>
+        <div class="category-nav-container">
+            <div class="category-nav-wrapper">
+                <?php foreach ($menuCategories as $categoryName => $items): 
+                    $catId = strtolower(str_replace(' ', '_', $categoryName));
+                ?>
+                <a href="#<?php echo $catId; ?>" class="category-nav-btn"><?php echo htmlspecialchars($categoryName); ?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
 
         <!-- Menu Categories -->
         <?php if (!empty($menuCategories)): ?>
-            <?php foreach ($menuCategories as $categoryName => $items): ?>
+            <?php foreach ($menuCategories as $categoryName => $items): 
+                $catId = strtolower(str_replace(' ', '_', $categoryName));
+            ?>
                 <div class="menu-category">
-                    <h2 class="category-title"><?php echo htmlspecialchars($categoryName); ?></h2>
+                    <h2 id="<?php echo $catId; ?>" class="category-title"><?php echo htmlspecialchars($categoryName); ?></h2>
                     <div class="menu-grid">
                         <?php foreach ($items as $item): 
                             // Prepare item data for JavaScript

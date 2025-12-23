@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../app/Controllers/AuthController.php';
-require_once __DIR__ . '/../app/Models/Database.php';
+require_once __DIR__ . '/../app/Models/BaseModel.php';
 require_once __DIR__ . '/../app/Helpers/Security.php';
 require_once __DIR__ . '/../app/Helpers/Session.php';
 

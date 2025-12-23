@@ -32,7 +32,7 @@ $currentPage = $_GET['page'] ?? 'dashboard';
             
             <li class="nav-item">
                 <a class="nav-link <?= $currentPage === 'users' ? 'active' : '' ?>" href="index.php?page=users">
-                    <i class="fas fa-users-cog me-2"></i> Staff Mgmt
+                    <i class="fas fa-users-cog me-2"></i> Users Mgmt
                 </a>
             </li>
 

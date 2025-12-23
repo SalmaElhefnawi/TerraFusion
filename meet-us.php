@@ -206,6 +206,17 @@ require_once 'config.php';
         </nav>
 
       </div>
+        
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+          <div class="d-flex">
+            <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="My Profile"><i class="bi bi-person-circle"></i></a>
+            <a class="btn-book-a-table d-none d-xl-block" href="logout.php" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
+          </div>
+        <?php else: ?>
+          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Profile"><i class="bi bi-person-circle"></i></a>
+        <?php endif; ?>
+
+      </div>
 
     </div>
 

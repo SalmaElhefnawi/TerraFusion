@@ -2,7 +2,7 @@
 session_start();
 require_once 'config.php';
 require_once 'cart_functions.php';
-
+  
 // Redirect to login if not logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
@@ -25,6 +25,8 @@ try {
     die("Error fetching user data: " . $e->getMessage());
 }
 
+$_SESSION['logged_in'] = true;
+
 $cart_count = 0;
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_SESSION['user_id'])) {
     $cart_id = getOrCreateCart($_SESSION['user_id']);
@@ -37,15 +39,23 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Profile - TerraFusion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/userprofile.css">
   <link href="main.css" rel="stylesheet">
+  <style>
+    #navmenu a {
+      font-family: Poppins, sans-serif !important;
+      font-size: 14px !important;
+    }
+    .sitename {
+      font-family: "Playfair Display", serif !important;
+      font-size: 30px !important;
+    }
+  </style>
 </head>
-<body>
+<body class="<?php echo (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) ? 'logged-in' : ''; ?>">
   <header id="header" class="header fixed-top">
 
     <div class="topbar d-flex align-items-center">
@@ -54,7 +64,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_
       </div>
     </div><!-- End Top Bar -->
 
-    <div class="branding d-flex align-items-center">
+    <div class="branding d-flex align-items-cente">
 
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
@@ -65,12 +75,12 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="#hero" class="active">Home<br></a></li>
+            <li class="<?php echo (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'active' : ''; ?>"><a href="index.php#hero">Home<br></a></li>
             <li><a href="menu.php">Menu</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#specials">Specials</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="index.php#about">About</a></li>
+            <li><a href="index.php#specials">Specials</a></li>
+            <li><a href="index.php#events">Events</a></li>
+            <li><a href="index.php#contact">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -86,7 +96,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_
 
           </div>
         <?php else: ?>
-          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Login"><i class="bi bi-box-arrow-in-right"></i></a>
+          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Profile"><i class="bi bi-person"></i></a>
         <?php endif; ?>
 
       </div>
@@ -405,12 +415,5 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/userprofile.js"></script>
-  
-  <!-- Mahmoud AI Chatbot -->
-  <script>
-    // Empty context for profile page, or could be fetched if needed
-    window.terraMenu = []; 
-  </script>
-  <script src="assets/js/chef-mahmoud.js"></script>
 </body>
 </html>

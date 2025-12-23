@@ -94,7 +94,7 @@ try {
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="#hero" class="active">Home<br></a></li>
+            <li><a href="#hero" class="active">Home</a></li>
             <li><a href="menu.php">Menu</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#specials">Specials</a></li>
@@ -115,7 +115,7 @@ try {
 
           </div>
         <?php else: ?>
-          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Login"><i class="bi bi-box-arrow-in-right"></i></a>
+          <a class="btn-book-a-table d-none d-xl-block" href="userprofile.php" title="Profile"><i class="bi bi-person-circle"></i></a>
         <?php endif; ?>
 
       </div>
@@ -129,13 +129,38 @@ try {
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-      <img src="images/hero-bg.jpg" alt="Terra Fusion Restaurant" data-aos="fade-in">
+      <div class="swiper init-swiper" data-aos="fade-in">
+        <script type="application/json" class="swiper-config">
+          {
+            "loop": true,
+            "speed": 1000,
+            "autoplay": {
+              "delay": 5000,
+              "disableOnInteraction": false
+            },
+            "effect": "fade",
+            "fadeEffect": {
+              "crossFade": true
+            },
+            "allowTouchMove": false
+          }
+        </script>
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="images/hero-slide-1.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="images/hero-slide-2.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="images/hero-slide-3.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="images/hero-slide-4.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="images/hero-slide-5.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="images/hero-slide-6.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="images/hero-slide-7.jpg" alt=""></div>
+        </div>
+      </div>
 
-      <div class="container">
-        <div class="row">
+      <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="row w-100 justify-content-center">
           <div class="col-lg-8 d-flex flex-column align-items-center align-items-lg-start">
             <h2 data-aos="fade-up" data-aos-delay="100">Welcome to <span>Terra Fusion</span></h2>
-            <p data-aos="fade-up" data-aos-delay="200">A taste you have never tried before..</p>
+            <p data-aos="fade-up" data-aos-delay="200">Experience flavor reimagined.</p>
             <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
               <a href="menu.php" class="cta-btn">Our Menu</a>
               <a href="#book-a-table" class="cta-btn">Book a Table</a>
@@ -233,19 +258,19 @@ try {
           <div class="col-lg-3">
             <ul class="nav nav-tabs flex-column">
               <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" href="#specials-tab-1">Modi sit est</a>
+                <a class="nav-link active show" data-bs-toggle="tab" href="#specials-tab-1">Chef's Signature</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-2">Unde praesentium sed</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-2">Ocean's Catch</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-3">Vegan Ramen</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-3">Appetizers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-4">Nostrum qui quasi</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-4">Comfort Classics</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-5">Iusto ut expedita aut</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-5">Sweet Finale</a>
               </li>
             </ul>
           </div>
@@ -254,60 +279,60 @@ try {
               <div class="tab-pane active show" id="specials-tab-1">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Architecto ut aperiam autem id</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                    <h3>Truffle Pasta</h3>
+                    <p class="fst-italic">Fettuccine pasta in a creamy sauce infused with aromatic truffle oil and topped with shaved black truffles.</p>
+                    <p>Indulge in the earthy elegance of our Truffle Pasta. We use only the finest Italian fettuccine, coated in a velvety cream sauce that perfectly balances the intense aroma of black truffles. A true signature dish for the discerning palate.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-1.png" alt="" class="img-fluid">
+                    <img src="images/meals-imgs/Truffle Pasta.jpg" alt="Truffle Pasta" class="img-fluid">
                   </div>
                 </div>
               </div>
               <div class="tab-pane" id="specials-tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Et blanditiis nemo veritatis excepturi</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                    <h3>Grilled Salmon Delight</h3>
+                    <p class="fst-italic">Perfectly grilled salmon fillet seasoned with herbs and served with asparagus and lemon butter sauce.</p>
+                    <p>Our Atlantic salmon is sourced fresh and grilled to achieve a flaky texture and crispy skin. Complemented by the brightness of our house-made lemon butter sauce and fresh asparagus, it's a healthy yet indulgent choice.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-2.png" alt="" class="img-fluid">
+                    <img src="images/meals-imgs/Grilled Salmon Delight.jpg" alt="Grilled Salmon Delight" class="img-fluid">
                   </div>
                 </div>
               </div>
               <div class="tab-pane" id="specials-tab-3">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                    <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                    <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
+                    <h3>Bruschetta Trio</h3>
+                    <p class="fst-italic">Three varieties of fresh bruschetta with tomatoes, basil, and balsamic glaze.</p>
+                    <p>Start your meal with a burst of freshness. Our trio features classic tomato and basil, roasted pepper with goat cheese, and a rich olive tapenade. All served on toasted artisan bread drizzled with aged balsamic.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="images/specials-3.png" alt="" class="img-fluid">
+                    <img src="images/meals-imgs/Bruschetta Trio.jpg" alt="Bruschetta Trio" class="img-fluid">
                   </div>
                 </div>
               </div>
               <div class="tab-pane" id="specials-tab-4">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                    <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
+                    <h3>Chicken Alfredo Pasta</h3>
+                    <p class="fst-italic">Grilled chicken breast tossed in a rich, creamy Alfredo sauce with fettuccine pasta.</p>
+                    <p>Comfort food at its finest. Tender slices of grilled chicken breast are tossed with perfectly cooked pasta in our signature Alfredo sauce, made with heavy cream, butter, and plenty of Parmesan cheese.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-4.png" alt="" class="img-fluid">
+                    <img src="images/meals-imgs/Chicken Alfredo Pasta.jpg" alt="Chicken Alfredo Pasta" class="img-fluid">
                   </div>
                 </div>
               </div>
               <div class="tab-pane" id="specials-tab-5">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                    <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
+                    <h3>Tiramisu</h3>
+                    <p class="fst-italic">Classic Italian dessert made with layers of coffee-soaked ladyfingers and mascarpone cream.</p>
+                    <p>End on a sweet note with our authentic Tiramisu. We use premium espresso to soak the ladyfingers, ensuring every bite is moist and flavorful. Layered with a light, airy mascarpone filling and dusted with cocoa powder.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/specials-5.png" alt="" class="img-fluid">
+                    <img src="images/meals-imgs/Tiramisu.jpg" alt="Tiramisu" class="img-fluid">
                   </div>
                 </div>
               </div>
@@ -352,20 +377,18 @@ try {
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                   <h3>Birthday Parties</h3>
                   <div class="price">
-                    <p><span>$189</span></p>
+                    <p><span>189EGP</span></p>
                   </div>
                   <p class="fst-italic">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.
+                    Celebrate your special moments with us. Our dedicated team ensures a fun and memorable experience with custom menus and decorations.
                   </p>
                   <ul>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Customizable cake and dessert options</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Private area reservation available</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Dedicated host for your event</span></li>
                   </ul>
                   <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur
+                    Make your birthday unforgettable at Terra Fusion. We handle all the details so you can focus on celebrating with your loved ones.
                   </p>
                 </div>
               </div>
@@ -379,20 +402,18 @@ try {
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                   <h3>Private Parties</h3>
                   <div class="price">
-                    <p><span>$290</span></p>
+                    <p><span>290EGP</span></p>
                   </div>
                   <p class="fst-italic">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.
+                    Host your exclusive events in our private dining area. Perfect for corporate meetings or intimate family gatherings.
                   </p>
                   <ul>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Secluded space for privacy</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Tailored menus and premium wine pairing</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Audio-visual equipment support</span></li>
                   </ul>
                   <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur
+                     Enjoy an exclusive atmosphere with our private party packages. We offer top-tier service to ensure your meaningful conversations are uninterrupted.
                   </p>
                 </div>
               </div>
@@ -406,20 +427,18 @@ try {
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                   <h3>Custom Parties</h3>
                   <div class="price">
-                    <p><span>$99</span></p>
+                    <p><span>99EGP</span></p>
                   </div>
                   <p class="fst-italic">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.
+                    Let us bring your vision to life. Whether it's a themed party or a grand celebration, we tailor every detail to your needs.
                   </p>
                   <ul>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                    <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Flexible seating arrangements</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Themed decorations and lighting</span></li>
+                    <li><i class="bi bi-check2-circle"></i> <span>Personalized menu consultation</span></li>
                   </ul>
                   <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur
+                    No idea is too big or too small. Our event planners work closely with you to design a custom party that reflects your style and personality.
                   </p>
                 </div>
               </div>
@@ -522,15 +541,15 @@ try {
           <div class="swiper-wrapper">
 
             <div class="swiper-slide">
-              <div class="testimonial-item" "="">
+              <div class="testimonial-item">
             <p>
-              <i class=" bi bi-quote quote-icon-left"></i>
-                <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                <i class="bi bi-quote quote-icon-left"></i>
+                <span>"Terra Fusion is a revelation! The combination of flavors is unlike anything I've tasted before. The Ribeye is a must-try. Definitely coming back!"</span>
                 <i class="bi bi-quote quote-icon-right"></i>
                 </p>
                 <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
+                <h3>James Dalton</h3>
+                <h4>Food Critic</h4>
               </div>
             </div><!-- End testimonial item -->
 
@@ -538,12 +557,12 @@ try {
               <div class="testimonial-item">
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <span>"The atmosphere is perfect for a romantic evening. The staff was incredibly attentive, and the dessert was Divine. Truly a five-star experience."</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
                 <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
+                <h3>Sara Wilson</h3>
+                <h4>Artist</h4>
               </div>
             </div><!-- End testimonial item -->
 
@@ -551,7 +570,7 @@ try {
               <div class="testimonial-item">
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                  <span>"I hosted my birthday party here and it was flawless. The private room was beautiful, and the custom menu was a hit with all my guests."</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
                 <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
@@ -564,7 +583,7 @@ try {
               <div class="testimonial-item">
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
+                  <span>"As a vegan, I often struggle to find good options, but the Spicy Miso Ramen here is incredible. It looks and tastes amazing. Highly appreciate the variety!"</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
                 <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
@@ -577,7 +596,7 @@ try {
               <div class="testimonial-item">
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                  <span>"Fast service, great food, and very modern ordering system. I love how I can track my order. Terra Fusion is leading the way in dining tech!"</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
                 <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
@@ -595,7 +614,7 @@ try {
     </section><!-- /Testimonials Section -->
 
     <!-- Contact Section -->
-    <section id="contact" class="contact section">
+    <section id="contact" class="contact section" style="position: relative; overflow: hidden;">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -604,19 +623,19 @@ try {
       </div><!-- End Section Title -->
 
       <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
-        <iframe style="border:0; width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe style="border:0; width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3461.165763775662!2d31.49196591566666!3d30.16846551566666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14581bab30f3291d%3A0x1b138aefe2d8bedb!2zMVkgSW5zdHJpY3Rpb24gVW5pdGl2YXRpb24gKE1JVSk!5e0!3m2!1sen!2sus!4v1756120902456!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div><!-- End Google Maps -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row gy-4">
+        <div class="row gy-4 justify-content-center align-items-center">
 
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
               <i class="bi bi-geo-alt flex-shrink-0"></i>
               <div>
                 <h3>Location</h3>
-                <p>A108 Adam Street, New York, NY 535022</p>
+                <p>Egypt, Cairo, Obour City, MIU</p>
               </div>
             </div><!-- End Info Item -->
 
@@ -624,7 +643,7 @@ try {
               <i class="bi bi-telephone flex-shrink-0"></i>
               <div>
                 <h3>Open Hours</h3>
-                <p>Monday-Saturday:<br>11:00 AM - 2300 PM</p>
+                <p>Monday-Sunday:<br>11:00 AM - 11:00 PM</p>
               </div>
             </div><!-- End Info Item -->
 
@@ -632,50 +651,15 @@ try {
               <i class="bi bi-telephone flex-shrink-0"></i>
               <div>
                 <h3>Call Us</h3>
-                <p>+1 5589 55488 55</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              <i class="bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <a href="meet-us.php"><h3>Meet Us</h3></a>
+                <p>+20 101 234 5678</p>
               </div>
             </div><!-- End Info Item -->
 
           </div>
 
-          <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
+          <div class="col-lg-3 d-flex justify-content-center">
+            <a href="meet-us.php" class="meet-us-btn">Meet Us</a>
+          </div>
 
         </div>
 
@@ -685,21 +669,51 @@ try {
 
   </main>
 
-  <footer id="footer" class="footer">
+  <footer id="footer" class="footer" style="position: relative; overflow: visible;">
+    <!-- Floating Shapes Background -->
+    <div class="floating-shapes">
+      <span class="shape" style="--i:11; --x: 05%; --d: 0s;">✦</span>
+      <span class="shape" style="--i:12; --x: 15%; --d: 2s;">✧</span>
+      <span class="shape" style="--i:15; --x: 25%; --d: 4s;">●</span>
+      <span class="shape" style="--i:13; --x: 35%; --d: 1s;">◆</span>
+      <span class="shape" style="--i:18; --x: 45%; --d: 5s;">✨</span>
+      <span class="shape" style="--i:14; --x: 55%; --d: 3s;">✦</span>
+      <span class="shape" style="--i:16; --x: 65%; --d: 6s;">✧</span>
+      <span class="shape" style="--i:19; --x: 75%; --d: 2s;">●</span>
+      <span class="shape" style="--i:20; --x: 85%; --d: 4s;">◆</span>
+      
+      <span class="shape" style="--i:21; --x: 10%; --d: 1.5s;">✨</span>
+      <span class="shape" style="--i:22; --x: 20%; --d: 3.5s;">✦</span>
+      <span class="shape" style="--i:23; --x: 30%; --d: 5.5s;">✧</span>
+      <span class="shape" style="--i:24; --x: 40%; --d: 2.5s;">●</span>
+      <span class="shape" style="--i:25; --x: 50%; --d: 4.5s;">◆</span>
+      <span class="shape" style="--i:26; --x: 60%; --d: 0.5s;">✨</span>
+      <span class="shape" style="--i:27; --x: 70%; --d: 6.5s;">✦</span>
+      <span class="shape" style="--i:28; --x: 80%; --d: 1.2s;">✧</span>
+      <span class="shape" style="--i:29; --x: 90%; --d: 3.2s;">●</span>
+      <span class="shape" style="--i:30; --x: 02%; --d: 5.2s;">◆</span>
+      <span class="shape" style="--i:31; --x: 12%; --d: 2.8s;">✨</span>
+      <span class="shape" style="--i:32; --x: 22%; --d: 4.8s;">✦</span>
+      <span class="shape" style="--i:33; --x: 32%; --d: 0.8s;">✧</span>
+      <span class="shape" style="--i:34; --x: 42%; --d: 6.8s;">●</span>
+      <span class="shape" style="--i:35; --x: 52%; --d: 1.8s;">◆</span>
+      <span class="shape" style="--i:36; --x: 62%; --d: 3.8s;">✨</span>
+      <span class="shape" style="--i:37; --x: 72%; --d: 5.8s;">✦</span>
+    </div>
 
     <div class="container footer-top">
-      <div class="row gy-4">
+      <div class="row gy-4 justify-content-center text-center">
         <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="index.php" class="logo d-flex align-items-center">
             <span class="sitename">Terra Fusion</span>
           </a>
           <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
+            <p>Misr International University</p>
+            <p>Egypt, Cairo, Obour City, MIU</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+20 101 234 5678</span></p>
+            <p><strong>Email:</strong> <span>contact@terrafusion.com</span></p>
           </div>
-          <div class="social-links d-flex mt-4">
+          <div class="social-links d-flex mt-4 justify-content-center">
             <a href=""><i class="bi bi-twitter-x"></i></a>
             <a href=""><i class="bi bi-facebook"></i></a>
             <a href=""><i class="bi bi-instagram"></i></a>
@@ -710,34 +724,12 @@ try {
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="#about">About us</a></li>
+            <li><a href="menu.php">Menu</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="meet-us.php">Meet Us</a></li>
           </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-md-12 footer-newsletter">
-          <h4>Our Newsletter</h4>
-          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-          <form action="forms/newsletter.php" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
         </div>
 
       </div>
