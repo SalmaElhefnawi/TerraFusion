@@ -35,8 +35,8 @@ try {
     }
 
     // Insert into database
-    $stmt = $pdo->prepare("INSERT INTO reservations (customer_name, contact_phone, party_size, reservation_date, reservation_time, status, notes, email) VALUES (?, ?, ?, ?, ?, 'Confirmed', ?, ?)");
-    if (!$stmt->execute([$name, $phone, $people, $date, $time, $message_text, $email])) {
+    $stmt = $pdo->prepare("INSERT INTO reservations (customer_name, contact_phone, party_size, reservation_date, reservation_time, status, notes) VALUES (?, ?, ?, ?, ?, 'Confirmed', ?)");
+    if (!$stmt->execute([$name, $phone, $people, $date, $time, $message_text])) {
         throw new Exception("Database insert failed.");
     }
 
