@@ -121,6 +121,76 @@ try {
         $pdo->rollBack();
     }
     error_log("Order processing failed: " . $e->getMessage());
-    die("An error occurred while placing your order: " . $e->getMessage());
+    $errorMessage = htmlspecialchars($e->getMessage());
+    echo <<<HTML
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Error - TerraFusion</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <style>
+            body {
+                background: var(--bg-primary, #000);
+                color: var(--text-color, #fff);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }
+            .error-container {
+                background: #111;
+                border: 1px solid rgba(212, 175, 55, 0.2);
+                border-radius: 12px;
+                padding: 3rem;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                max-width: 500px;
+                width: 90%;
+            }
+            .error-icon {
+                font-size: 4rem;
+                color: #e74c3c;
+                margin-bottom: 1rem;
+            }
+            .error-title {
+                font-family: 'Playfair Display', serif;
+                color: var(--accent-gold, #cda45e);
+                margin-bottom: 1.5rem;
+            }
+            .btn-gold {
+                background: var(--accent-gold, #cda45e);
+                color: #000;
+                border: 2px solid var(--accent-gold, #cda45e);
+                padding: 10px 25px;
+                border-radius: 5px;
+                transition: 0.3s;
+                text-decoration: none;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                display: inline-block;
+                margin-top: 1.5rem;
+            }
+            .btn-gold:hover {
+                background: transparent;
+                color: var(--accent-gold, #cda45e);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="error-container">
+            <div class="error-icon">⚠</div>
+            <h2 class="error-title">Order Processing Failed</h2>
+            <p>{$errorMessage}</p>
+            <a href="cart.php" class="btn-gold">Return to Cart</a>
+        </div>
+    </body>
+    </html>
+HTML;
+    exit;
 }
 

@@ -38,10 +38,6 @@ class UserModel extends BaseModel
             $fields[] = "full_name = :full_name";
             $params['full_name'] = $data['full_name'];
         }
-        if (isset($data['email'])) {
-            $fields[] = "email = :email";
-            $params['email'] = $data['email'];
-        }
         if (isset($data['role'])) {
             $fields[] = "role = :role";
             $params['role'] = $data['role'];

@@ -26,11 +26,18 @@
                     <td><?= htmlspecialchars($user['email']) ?></td>
                     <td><span class="badge bg-secondary"><?= htmlspecialchars($user['role']) ?></span></td>
                     <td>
-                        <button class="btn btn-sm btn-outline-gold me-2" 
-                                onclick='editUser(<?= json_encode($user) ?>)'
-                                data-bs-toggle="modal" data-bs-target="#userModal">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-sm btn-outline-gold me-2" 
+                                    onclick='editUser(<?= json_encode($user) ?>)'
+                                    data-bs-toggle="modal" data-bs-target="#userModal">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" 
+                                    onclick="document.getElementById('deleteUserId').value = <?= htmlspecialchars($user['user_id']) ?>;"
+                                    data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -79,6 +86,28 @@
                     <button type="submit" class="btn btn-gold">Save Changes</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete User Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title" id="deleteUserModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to delete this user? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer border-top border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form action="index.php?page=users&action=delete" method="POST" class="d-inline mb-0">
+                    <input type="hidden" name="userId" id="deleteUserId" value="">
+                    <button type="submit" class="btn btn-danger">Yes, Delete User</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

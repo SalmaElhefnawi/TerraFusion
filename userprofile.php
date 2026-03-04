@@ -259,10 +259,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_
               </div>
               <div class="card-body p-4">
                   <?php
-                    // Fetch user reservations
+                    // Fetch user reservations using name and phone (no email column in table)
                     try {
-                        $stmtRes = $pdo->prepare("SELECT * FROM reservations WHERE email = ? ORDER BY reservation_date DESC, reservation_time DESC");
-                        $stmtRes->execute([$user['email']]);
+                        $stmtRes = $pdo->prepare("SELECT * FROM reservations WHERE customer_name = ? OR contact_phone = ? ORDER BY reservation_date DESC, reservation_time DESC");
+                        $phone = $user['phone'] ?? '';
+                        $stmtRes->execute([$user['full_name'], $phone]);
                         $reservations = $stmtRes->fetchAll(PDO::FETCH_ASSOC);
                     } catch (PDOException $e) {
                         $reservations = [];

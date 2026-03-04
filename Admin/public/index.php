@@ -125,6 +125,8 @@ switch ($page) {
              $controller->create();
          } elseif ($action === 'update') {
              $controller->update();
+         } elseif ($action === 'delete') {
+             $controller->delete();
          } else {
              $controller->index();
          }

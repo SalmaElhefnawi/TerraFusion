@@ -74,9 +74,11 @@
                     <!-- HIDDEN FIELD: reservation_id -->
                     <input type="hidden" id="reservationId" name="reservation_id">
 
-                    <div class="mb-3">
+                    <div class="mb-3 position-relative">
                         <label for="customer_name" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" id="customer_name" name="customer_name" required>
+                        <input type="text" class="form-control" id="customer_name" name="customer_name" autocomplete="off" required>
+                        <!-- Autocomplete Dropdown List -->
+                        <ul id="customer_autocomplete_list" class="autocomplete-dropdown d-none"></ul>
                     </div>
                     <div class="mb-3">
                         <label for="contact_phone" class="form-label">Phone Number</label>
@@ -111,3 +113,125 @@
         </div>
     </div>
 </div>
+
+<style>
+/* Custom Autocomplete Styles */
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #2b2b2b; /* Matches dark theme */
+    border: 1px solid #444;    /* Border matches inputs */
+    border-radius: 4px;
+    padding: 0;
+    margin: 5px 0 0 0;
+    list-style-type: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+.autocomplete-dropdown li {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #e0e0e0;          /* Light text for dark bg */
+    border-bottom: 1px solid #3a3a3a;
+}
+
+.autocomplete-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-dropdown li:hover {
+    background-color: #3b3b3b;
+    color: #d4af37;          /* Gold hover effect */
+}
+
+/* Scrollbar styles for dropdown */
+.autocomplete-dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+.autocomplete-dropdown::-webkit-scrollbar-track {
+    background: #2b2b2b; 
+}
+.autocomplete-dropdown::-webkit-scrollbar-thumb {
+    background-color: #555; 
+    border-radius: 4px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const customerInput = document.getElementById('customer_name');
+    const phoneInput = document.getElementById('contact_phone');
+    const autocompleteList = document.getElementById('customer_autocomplete_list');
+
+    let debounceTimer;
+
+    // Listen to input changes
+    customerInput.addEventListener('input', function() {
+        const query = this.value.trim();
+        
+        // Clear previous timeout
+        clearTimeout(debounceTimer);
+
+        if (query.length < 2) {
+            autocompleteList.classList.add('d-none');
+            autocompleteList.innerHTML = '';
+            return;
+        }
+
+        // Add small delay so we don't spam server on every keystroke
+        debounceTimer = setTimeout(() => {
+            fetchCustomers(query);
+        }, 300); 
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!customerInput.contains(e.target) && !autocompleteList.contains(e.target)) {
+            autocompleteList.classList.add('d-none');
+        }
+    });
+
+    async function fetchCustomers(query) {
+        try {
+            const response = await fetch(`search_customers.php?q=${encodeURIComponent(query)}`);
+            
+            if (!response.ok) {
+                console.error("Network response was not ok");
+                return;
+            }
+
+            const data = await response.json();
+            
+            autocompleteList.innerHTML = ''; // Clear old results
+            
+            if (data.length > 0) {
+                data.forEach(customer => {
+                    const li = document.createElement('li');
+                    li.textContent = `${customer.full_name} (${customer.phone || 'No phone'})`;
+                    
+                    // On click, autofill name & phone
+                    li.addEventListener('click', () => {
+                        customerInput.value = customer.full_name;
+                        if(customer.phone) {
+                            phoneInput.value = customer.phone;
+                        }
+                        autocompleteList.classList.add('d-none');
+                    });
+                    
+                    autocompleteList.appendChild(li);
+                });
+                autocompleteList.classList.remove('d-none'); // Show
+            } else {
+                autocompleteList.classList.add('d-none'); // Hide if no results
+            }
+        } catch (error) {
+            console.error("Error fetching customers:", error);
+        }
+    }
+});
+</script>

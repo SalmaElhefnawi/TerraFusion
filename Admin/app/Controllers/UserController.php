@@ -39,7 +39,17 @@ class UserController
                 'role' => $_POST['role']
             ];
 
-            $this->userModel->create($data);
+            try {
+                $this->userModel->create($data);
+                \App\Helpers\Session::setFlash('success', 'User created successfully.');
+            } catch (\PDOException $e) {
+                if ($e->getCode() == 23000) {
+                    \App\Helpers\Session::setFlash('error', 'A user with this email already exists.');
+                } else {
+                    \App\Helpers\Session::setFlash('error', 'Database error: ' . $e->getMessage());
+                }
+            }
+            
             header("Location: index.php?page=users");
             exit();
         }
@@ -56,12 +66,46 @@ class UserController
                 'role' => $_POST['role']
             ];
             
-            if (!empty($_POST['password'])) {
-                $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $this->userModel->updatePassword($id, $hash);
+            try {
+                if (!empty($_POST['password'])) {
+                    $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $this->userModel->updatePassword($id, $hash);
+                }
+
+                $this->userModel->update($id, $data);
+                \App\Helpers\Session::setFlash('success', 'User updated successfully.');
+            } catch (\PDOException $e) {
+                if ($e->getCode() == 23000) {
+                    \App\Helpers\Session::setFlash('error', 'A user with this email already exists.');
+                } else {
+                    \App\Helpers\Session::setFlash('error', 'Database error: ' . $e->getMessage());
+                }
             }
 
-            $this->userModel->update($id, $data);
+            header("Location: index.php?page=users");
+            exit();
+        }
+    }
+
+    public function delete()
+    {
+        AuthController::checkAccess('Manager');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['userId'])) {
+            $id = $_POST['userId'];
+            
+            try {
+                // Prevent deleting yourself
+                if ($id == \App\Helpers\Session::get('user_id')) {
+                    \App\Helpers\Session::setFlash('error', 'You cannot delete your own account.');
+                } else {
+                    $this->userModel->delete($id);
+                    \App\Helpers\Session::setFlash('success', 'User deleted successfully.');
+                }
+            } catch (\PDOException $e) {
+                \App\Helpers\Session::setFlash('error', 'Database error: ' . $e->getMessage());
+            }
+
             header("Location: index.php?page=users");
             exit();
         }
