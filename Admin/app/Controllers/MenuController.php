@@ -141,7 +141,18 @@ class MenuController
         
         $id = $_GET['id'] ?? null;
         if ($id) {
-            $this->menuModel->delete($id);
+            try {
+                $this->menuModel->delete($id);
+                \App\Helpers\Session::setFlash('success', 'Meal deleted successfully.');
+            } catch (\PDOException $e) {
+                if ($e->getCode() == 23000) {
+                    \App\Helpers\Session::setFlash('error', 'Cannot delete this meal because it is linked to past or current orders. Try setting quantity to 0 to mark it as Out of Stock.');
+                } else {
+                    \App\Helpers\Session::setFlash('error', 'Cannot delete meal due to database error.');
+                }
+            } catch (\Exception $e) {
+                \App\Helpers\Session::setFlash('error', 'An error occurred while deleting the meal.');
+            }
         }
         header("Location: index.php?page=menu");
         exit();
