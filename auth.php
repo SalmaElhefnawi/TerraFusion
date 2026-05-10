@@ -30,11 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'] ?? '';
 
         try {
-            $stmt = $pdo->prepare("SELECT user_id, password_hash, full_name, email, phone, role FROM users WHERE email = ?");
-            $stmt->execute([$email]);
+           // VULNERABLE SQL QUERY FOR LAB DEMO
+            $sql = "SELECT user_id, password_hash, full_name, email, phone, role FROM users WHERE email = '$email' AND password = '$password'";
+            $stmt = $pdo->query($sql);
             $user = $stmt->fetch();
 
-            if ($user && password_verify($password, $user['password_hash'])) {
+            if ($user) {
                 $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['full_name'] = $user['full_name'];
                 $_SESSION['email'] = $user['email'];
