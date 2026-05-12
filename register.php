@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $role = 'Waiter'; 
             $is_active = 1;
             
-            $stmt = $pdo->prepare("INSERT INTO users (full_name, email, phone, password_hash, role, is_active, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
-            if ($stmt->execute([$username, $email, $phone, $hashed_password, $role, $is_active])) {
+            $stmt = $pdo->prepare("INSERT INTO users (username, full_name, email, phone, password_hash, role, is_active, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+            if ($stmt->execute([$username, $username, $email, $phone, $hashed_password, $role, $is_active])) {
                 $_SESSION['user_id'] = $pdo->lastInsertId();
                 $_SESSION['full_name'] = $username;
                 $_SESSION['user_name'] = $username;
